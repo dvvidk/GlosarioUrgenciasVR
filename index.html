@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Glosario Urgencias</title>
+<style>
+  :root{
+    --bg:#08111f; --panel:#0f1b33; --panel2:#132544; --card:#11203d; --text:#eef2ff; --muted:#9fb0d0;
+    --cyan:#38bdf8; --green:#22c55e; --yellow:#f59e0b; --red:#ef4444; --border:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at top left, rgba(56,189,248,.16), transparent 22%), linear-gradient(180deg,#07101d,#0b1730 40%,#0f172a)}
+  .wrap{max-width:1360px;margin:0 auto;padding:20px}
+  .hero{display:grid;grid-template-columns:1.3fr .7fr;gap:16px;margin-bottom:16px}
+  .box{background:linear-gradient(180deg, rgba(17,32,61,.96), rgba(15,27,51,.92));border:1px solid var(--border);border-radius:24px;box-shadow:0 16px 36px rgba(0,0,0,.24)}
+  .hero-main{padding:26px}
+  h1{margin:0 0 10px;font-size:38px;line-height:1.05}
+  .lead{margin:0;color:var(--muted);max-width:900px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .pill{padding:8px 12px;border-radius:999px;font-size:13px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+  .hero-side{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+  .metric{padding:16px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+  .metric .num{font-size:28px;font-weight:800}
+  .metric .lbl{font-size:13px;color:var(--muted)}
+  .searchbar{display:grid;grid-template-columns:1.3fr .8fr .6fr;gap:12px;margin:16px 0 14px}
+  input,select,button{padding:14px 16px;border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--text);font-size:16px;outline:none}
+  input::placeholder{color:#b6c3e6}
+  button{cursor:pointer;font-weight:700;background:linear-gradient(135deg, rgba(56,189,248,.18), rgba(34,197,94,.14))}
+  .quickcats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+  .qc{padding:9px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);cursor:pointer;font-size:14px}
+  .qc.active{border-color:rgba(56,189,248,.7);background:rgba(56,189,248,.16)}
+  .content{display:grid;grid-template-columns:300px 1fr;gap:16px}
+  .sidebar{padding:18px;position:sticky;top:16px;height:fit-content}
+  .sidebar h2,.main h2{margin:0 0 10px;font-size:22px}
+  .sidebar p{margin:0 0 12px;color:var(--muted);font-size:14px}
+  .menu{display:grid;gap:10px}
+  .menuitem{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--border);cursor:pointer}
+  .menuitem:hover{border-color:rgba(56,189,248,.35)}
+  .menuitem small{color:var(--muted)}
+  .main{padding:0}
+  .mainhead{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:10px}
+  .mainhead span{color:var(--muted);font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:14px}
+  .card{padding:18px;border-radius:20px;background:linear-gradient(180deg, rgba(19,37,68,.98), rgba(17,32,61,.92));border:1px solid var(--border);position:relative;overflow:hidden}
+  .card::after{content:'';position:absolute;right:-24px;bottom:-24px;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle, rgba(56,189,248,.17), transparent 70%)}
+  .tag{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;background:rgba(56,189,248,.12);color:#bfdbfe;margin-bottom:10px}
+  .abbr{margin:0 0 8px;font-size:30px;font-weight:900}
+  .meaning{margin:0 0 8px;color:#86efac;font-weight:800}
+  .simple{margin:0;color:var(--text)}
+  .example{margin:10px 0 0;color:#cbd5e1;font-size:14px}
+  .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+  @media (max-width: 1000px){.hero,.content,.searchbar{grid-template-columns:1fr}.sidebar{position:static}.hero-side{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width: 640px){h1{font-size:30px}.hero-side{grid-template-columns:1fr}.mainhead{flex-direction:column;align-items:start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="box hero-main">
+      <h1>Glosario Urgencias</h1>
+      <p class="lead">Versión híbrida: conserva la limpieza de la primera, pero suma una estética más robusta y moderna. Pensada para que puedas usarla como guía de estudio y también como presentación de proyecto.</p>
+      <div class="pillrow">
+        <span class="pill">Buscador rápido</span>
+        <span class="pill">Filtros por área</span>
+        <span class="pill">Panel lateral</span>
+        <span class="pill">Tarjetas clínicas</span>
+      </div>
+    </div>
+    <div class="box hero-side">
+      <div class="metric"><div class="num" id="total">0</div><div class="lbl">abreviaciones</div></div>
+      <div class="metric"><div class="num" id="cats">0</div><div class="lbl">categorías</div></div>
+      <div class="metric"><div class="num">3</div><div class="lbl">formas de filtrar</div></div>
+      <div class="metric"><div class="num">v3</div><div class="lbl">propuesta final</div></div>
+    </div>
+  </section>
+
+  <div class="searchbar">
+    <input id="search" type="text" placeholder="Buscar sigla, ejemplo: GCS, PEEP, HGT..." />
+    <select id="filter">
+      <option value="all">Todas las categorías</option>
+      <option value="Respiratorio">Respiratorio</option>
+      <option value="Neurológico">Neurológico</option>
+      <option value="Monitoreo">Monitoreo</option>
+      <option value="Medicamentos">Medicamentos</option>
+      <option value="Procedimientos">Procedimientos</option>
+      <option value="Administrativo">Administrativo</option>
+      <option value="Abdomen">Abdomen</option>
+    </select>
+    <button id="clear">Limpiar</button>
+  </div>
+
+  <div class="quickcats" id="quickcats"></div>
+
+  <div class="content">
+    <aside class="box sidebar">
+      <h2>Categorías</h2>
+      <p>Selecciona una categoría para revisar su bloque completo o usarla como atajo durante el internado.</p>
+      <div class="menu" id="menu"></div>
+    </aside>
+
+    <main class="main">
+      <div class="mainhead">
+        <div>
+          <h2 id="title">Abreviaciones frecuentes</h2>
+          <span id="subtitle">Busca por sigla o filtra por categoría.</span>
+        </div>
+      </div>
+      <div class="grid" id="cards"></div>
+    </main>
+  </div>
+
+  <div class="footer">Glosario Urgencias v3 · combinación de claridad + presencia visual.</div>
+</div>
+
+<script>
+const data = [
+  {abbr:'GCS', cat:'Neurológico', meaning:'Escala de Coma de Glasgow', simple:'Mide el nivel de conciencia.', ex:'Ej.: GCS 3 indica compromiso neurológico severo.'},
+  {abbr:'HGT', cat:'Monitoreo', meaning:'Hemoglucotest', simple:'Azúcar medida en el dedo.', ex:'Ej.: HGT 245 sugiere hiperglicemia.'},
+  {abbr:'FC', cat:'Monitoreo', meaning:'Frecuencia cardíaca', simple:'Latidos por minuto.', ex:'Ej.: FC 150 es taquicardia.'},
+  {abbr:'FR', cat:'Monitoreo', meaning:'Frecuencia respiratoria', simple:'Respiraciones por minuto.', ex:'Ej.: FR 46 indica trabajo respiratorio alto.'},
+  {abbr:'SAT', cat:'Monitoreo', meaning:'Saturación de oxígeno', simple:'Cuánto oxígeno lleva la sangre.', ex:'Ej.: SAT 86% es hipoxemia.'},
+  {abbr:'PAM', cat:'Monitoreo', meaning:'Presión arterial media', simple:'Presión promedio que perfunde órganos.', ex:'Ej.: PAM 64 puede ser baja.'},
+  {abbr:'PA', cat:'Monitoreo', meaning:'Presión arterial', simple:'Presión de la sangre en las arterias.', ex:'Ej.: PA 88/53.'},
+  {abbr:'PEEP', cat:'Respiratorio', meaning:'Presión positiva al final de la espiración', simple:'Mantiene abiertos los alveolos.', ex:'Ej.: PEEP 6 en ventilación mecánica.'},
+  {abbr:'FiO2', cat:'Respiratorio', meaning:'Fracción inspirada de oxígeno', simple:'Porcentaje de oxígeno que recibe el paciente.', ex:'Ej.: FiO2 40%.'},
+  {abbr:'VMI', cat:'Respiratorio', meaning:'Ventilación mecánica invasiva', simple:'Paciente conectado a ventilador por tubo.', ex:'Ej.: VMI con ventilación protectora.'},
+  {abbr:'AC/VC', cat:'Respiratorio', meaning:'Asistido-controlado por volumen', simple:'Modo del ventilador que entrega un volumen fijo.', ex:'Ej.: AC/VC VMI.'},
+  {abbr:'VT', cat:'Respiratorio', meaning:'Volumen corriente', simple:'Aire que entra en cada respiración mecánica.', ex:'Ej.: VT 90 mL.'},
+  {abbr:'ETCO2', cat:'Respiratorio', meaning:'CO2 al final de la espiración', simple:'Ayuda a ver ventilación y posición del tubo.', ex:'Ej.: capnografía ETCO2.'},
+  {abbr:'BDZ', cat:'Medicamentos', meaning:'Benzodiacepinas', simple:'Usadas para frenar convulsiones o sedar.', ex:'Ej.: se indican dos dosis de BDZ.'},
+  {abbr:'EV', cat:'Medicamentos', meaning:'Endovenoso', simple:'Administrado por vena.', ex:'Ej.: levetiracetam 900 mg EV.'},
+  {abbr:'IM', cat:'Medicamentos', meaning:'Intramuscular', simple:'Aplicado en el músculo.', ex:'Ej.: midazolam 3 mg IM.'},
+  {abbr:'IN', cat:'Medicamentos', meaning:'Intranasal', simple:'Aplicado por la nariz.', ex:'Ej.: midazolam 3 mg intranasal.'},
+  {abbr:'PR', cat:'Medicamentos', meaning:'Rectal', simple:'Administrado por el recto.', ex:'Ej.: paracetamol rectal.'},
+  {abbr:'SNG', cat:'Procedimientos', meaning:'Sonda nasogástrica', simple:'Tubo que va por nariz al estómago.', ex:'Ej.: instalación de SNG.'},
+  {abbr:'SRI', cat:'Procedimientos', meaning:'Secuencia de rápida intubación', simple:'Procedimiento para intubar con rapidez y seguridad.', ex:'Ej.: se realizó SRI.'},
+  {abbr:'VA', cat:'Procedimientos', meaning:'Vía aérea', simple:'El camino por donde entra el aire.', ex:'Ej.: no protege la VA.'},
+  {abbr:'TQ', cat:'Monitoreo', meaning:'Taquicardia', simple:'Corazón latiendo rápido.', ex:'Ej.: TQ sinusal.'},
+  {abbr:'RHA', cat:'Abdomen', meaning:'Ruidos hidroaéreos', simple:'Ruidos intestinales al auscultar abdomen.', ex:'Ej.: RHA presentes.'},
+  {abbr:'ABD', cat:'Abdomen', meaning:'Abdomen', simple:'Zona del vientre.', ex:'Ej.: ABD blando, no doloroso.'},
+  {abbr:'EESS', cat:'Neurológico', meaning:'Extremidades superiores', simple:'Brazos y manos.', ex:'Ej.: EESS simétricas.'},
+  {abbr:'EEII', cat:'Neurológico', meaning:'Extremidades inferiores', simple:'Piernas y pies.', ex:'Ej.: EEII móviles.'},
+  {abbr:'PNI', cat:'Administrativo', meaning:'Plan nacional de inmunizaciones', simple:'Esquema de vacunas.', ex:'Ej.: PNI completo.'},
+  {abbr:'SAR', cat:'Administrativo', meaning:'Servicio de alta resolutividad', simple:'Dervida del SAR.', ex:'Ej.: derivada desde SAR.'},
+  {abbr:'UCI', cat:'Administrativo', meaning:'Unidad de cuidados intensivos', simple:'Sector de mayor vigilancia y soporte.', ex:'Ej.: traslado a UCI pediátrica.'}
+];
+
+const cards=document.getElementById('cards');
+const search=document.getElementById('search');
+const filter=document.getElementById('filter');
+const quickcats=document.getElementById('quickcats');
+const menu=document.getElementById('menu');
+const title=document.getElementById('title');
+const subtitle=document.getElementById('subtitle');
+const total=document.getElementById('total');
+const cats=document.getElementById('cats');
+const clear=document.getElementById('clear');
+
+const categories=[...new Set(data.map(d=>d.cat))];
+total.textContent=data.length;
+cats.textContent=categories.length;
+
+function setFilter(val){
+  filter.value=val;
+  document.querySelectorAll('.qc').forEach(b=>b.classList.toggle('active', b.dataset.val===val || (val==='all' && b.dataset.val==='all')));
+  render();
+}
+
+['all',...categories].forEach(c=>{
+  const b=document.createElement('button');
+  b.className='qc';
+  b.dataset.val=c==='all'?'all':c;
+  b.textContent=c==='all'?'Todos':c;
+  b.onclick=()=>setFilter(c);
+  quickcats.appendChild(b);
+});
+document.querySelector('.qc').classList.add('active');
+
+function renderMenu(){
+  menu.innerHTML='';
+  const list=['Todos',...categories];
+  list.forEach(c=>{
+    const count=c==='Todos'?data.length:data.filter(d=>d.cat===c).length;
+    const item=document.createElement('div');
+    item.className='menuitem';
+    item.innerHTML=`<span>${c}</span><small>${count}</small>`;
+    item.onclick=()=>setFilter(c==='Todos'?'all':c);
+    menu.appendChild(item);
+  });
+}
+
+function render(){
+  const q=search.value.toLowerCase().trim();
+  const f=filter.value;
+  const filtered=data.filter(d=>{
+    const okQ=!q || [d.abbr,d.cat,d.meaning,d.simple,d.ex].join(' ').toLowerCase().includes(q);
+    const okF=f==='all' || d.cat===f;
+    return okQ && okF;
+  });
+  title.textContent=f==='all'?'Abreviaciones frecuentes':`Categoría: ${f}`;
+  subtitle.textContent=filtered.length ? `${filtered.length} resultado(s) encontrados` : 'No hay resultados con ese filtro.';
+  cards.innerHTML=filtered.map(d=>`
+    <article class="card">
+      <span class="tag">${d.cat}</span>
+      <h3 class="abbr">${d.abbr}</h3>
+      <p class="meaning">${d.meaning}</p>
+      <p class="simple">${d.simple}</p>
+      <p class="example">${d.ex}</p>
+    </article>
+  `).join('');
+}
+
+search.addEventListener('input', render);
+filter.addEventListener('change', ()=>setFilter(filter.value));
+clear.onclick=()=>{search.value=''; setFilter('all');};
+renderMenu();
+render();
+</script>
+</body>
+</html>
