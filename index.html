@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glosario Urgencias · Kinesiología</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Variables ─────────────────────────────────────────── */
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --surface2:  #1c2332;
+      --border:    #30363d;
+      --text:      #e6edf3;
+      --text-muted:#8b949e;
+      --accent:    #58a6ff;
+      --accent-dim:#1f3a5f;
+      --danger:    #f85149;
+      --success:   #3fb950;
+      --warning:   #d29922;
+
+      /* Categorías */
+      --c-resp:   #38bdf8;
+      --c-neuro:  #a78bfa;
+      --c-mon:    #34d399;
+      --c-med:    #fb923c;
+      --c-proc:   #f472b6;
+      --c-admin:  #94a3b8;
+      --c-abd:    #fbbf24;
+
+      --radius:    10px;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --font-sans: 'IBM Plex Sans', sans-serif;
+      --shadow:    0 4px 24px rgba(0,0,0,.5);
+      --transition: 0.18s ease;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    button { cursor: pointer; font-family: var(--font-sans); }
+    input, select, textarea { font-family: var(--font-sans); }
+    a { color: var(--accent); }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(16px, 4vw, 48px);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-dim);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .header-title {
+      flex: 1;
+    }
+    .header-title h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .header-title p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ─── Buttons ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      font-weight: 500;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #79c0ff; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover { background: var(--surface2); color: var(--text); }
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border-color: transparent;
+    }
+    .btn-danger:hover { background: rgba(248,81,73,.15); }
+    .btn-success {
+      background: transparent;
+      color: var(--success);
+      border-color: var(--border);
+    }
+    .btn-success:hover { background: rgba(63,185,80,.15); }
+    .btn-sm { padding: 4px 10px; font-size: 12px; border-radius: 5px; }
+    .btn-icon { padding: 7px; }
+
+    /* ─── Layout principal ───────────────────────────────────── */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* ─── Sidebar ────────────────────────────────────────────── */
+    aside {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sidebar-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      padding: 4px 8px 8px;
+    }
+    .filter-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-align: left;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .filter-btn:hover { background: var(--surface2); color: var(--text); }
+    .filter-btn.active { background: var(--accent-dim); color: var(--accent); font-weight: 500; }
+    .cat-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .filter-count {
+      margin-left: auto;
+      font-size: 11px;
+      background: var(--surface2);
+      padding: 1px 6px;
+      border-radius: 10px;
+      color: var(--text-muted);
+    }
+    .filter-btn.active .filter-count { background: var(--accent-dim); color: var(--accent); }
+
+    /* ─── Main content ───────────────────────────────────────── */
+    main {
+      padding: clamp(16px, 3vw, 32px);
+      overflow-y: auto;
+    }
+
+    /* ─── Toolbar ────────────────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .search-wrap {
+      flex: 1;
+      position: relative;
+      min-width: 200px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    #search {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 9px 12px 9px 38px;
+      font-size: 14px;
+      transition: var(--transition);
+      outline: none;
+    }
+    #search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,166,255,.15); }
+    #search::placeholder { color: var(--text-muted); }
+
+    /* ─── Estadísticas ───────────────────────────────────────── */
+    .stats-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-chip strong { color: var(--accent); font-size: 18px; font-family: var(--font-mono); }
+
+    /* ─── Cards grid ─────────────────────────────────────────── */
+    #cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      border-left: 4px solid var(--cat-color, var(--border));
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeIn .25s ease;
+    }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .card-abbr {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .card-cat {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.07);
+      color: var(--cat-color, var(--text-muted));
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-body { display: flex; flex-direction: column; gap: 6px; }
+    .info-row { display: flex; flex-direction: column; gap: 1px; }
+    .info-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+    }
+    .info-val { font-size: 13.5px; color: var(--text); }
+    .info-val.simple { color: #c9d1d9; font-style: italic; }
+
+    .card-example {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,.03);
+      border-radius: 6px;
+      border-left: 2px solid var(--cat-color, var(--border));
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .card-example strong { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 2px; }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      justify-content: flex-end;
+    }
+
+    /* ─── Empty state ────────────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      grid-column: 1/-1;
+    }
+    .empty-state svg { opacity: .3; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 16px; margin-bottom: 6px; color: var(--text); }
+
+    /* ─── Modal ──────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 540px;
+      box-shadow: var(--shadow);
+      transform: scale(.96) translateY(10px);
+      transition: transform .2s ease;
+    }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+    .modal-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-header h2 { font-size: 16px; font-weight: 600; }
+    .modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    /* ─── Form fields ────────────────────────────────────────── */
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
+    .field input,
+    .field select,
+    .field textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      padding: 8px 12px;
+      font-size: 14px;
+      outline: none;
+      transition: var(--transition);
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,166,255,.1); }
+    .field textarea { resize: vertical; min-height: 72px; }
+    .field select option { background: var(--surface); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field.required label::after { content: ' *'; color: var(--danger); }
+    .field-error { font-size: 11px; color: var(--danger); display: none; }
+    .field.has-error input,
+    .field.has-error select,
+    .field.has-error textarea { border-color: var(--danger); }
+    .field.has-error .field-error { display: block; }
+
+    /* ─── Toast ──────────────────────────────────────────────── */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .toast {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow);
+      animation: slideIn .25s ease;
+      max-width: 320px;
+    }
+    @keyframes slideIn { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+    .toast.success { border-left: 3px solid var(--success); }
+    .toast.error   { border-left: 3px solid var(--danger); }
+    .toast.info    { border-left: 3px solid var(--accent); }
+    .toast.warning { border-left: 3px solid var(--warning); }
+
+    /* ─── Confirm dialog ─────────────────────────────────────── */
+    #confirm-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 300;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+    }
+    #confirm-overlay.open { opacity: 1; pointer-events: all; }
+    .confirm-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transform: scale(.95);
+      transition: transform .18s ease;
+    }
+    #confirm-overlay.open .confirm-box { transform: scale(1); }
+    .confirm-icon { font-size: 32px; margin-bottom: 10px; }
+    .confirm-box h3 { font-size: 15px; margin-bottom: 8px; }
+    .confirm-box p  { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+    .confirm-actions { display: flex; gap: 10px; justify-content: center; }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .main-layout { grid-template-columns: 1fr; }
+      aside {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 12px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        gap: 6px;
+      }
+      .sidebar-label { display: none; }
+      .filter-btn { white-space: nowrap; flex-shrink: 0; width: auto; }
+      .filter-count { display: none; }
+      #cards-container { grid-template-columns: 1fr; }
+      .header-title p { display: none; }
+      .field-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .header-actions .btn span { display: none; }
+      .stats-bar { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Header ─────────────────────────────────────────────────── -->
+<header>
+  <div class="header-icon">🏥</div>
+  <div class="header-title">
+    <h1>Glosario Urgencias</h1>
+    <p>Apoyo interactivo para internos de kinesiología</p>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-ghost btn-sm" onclick="exportJSON()" title="Exportar JSON">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Exportar</span>
+    </button>
+    <label class="btn btn-ghost btn-sm" title="Importar JSON" style="cursor:pointer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <span>Importar</span>
+      <input type="file" accept=".json" onchange="importJSON(event)" style="display:none" />
+    </label>
+    <button class="btn btn-ghost btn-sm" onclick="confirmReset()" title="Restaurar datos iniciales">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.05"/></svg>
+      <span>Restaurar</span>
+    </button>
+    <button class="btn btn-primary btn-sm" onclick="openModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span>Agregar</span>
+    </button>
+  </div>
+</header>
+
+<!-- ─── Layout ──────────────────────────────────────────────────── -->
+<div class="main-layout">
+
+  <!-- Sidebar categorías -->
+  <aside id="sidebar">
+    <div class="sidebar-label">Categorías</div>
+    <!-- generado por JS -->
+  </aside>
+
+  <!-- Contenido principal -->
+  <main>
+    <!-- Búsqueda -->
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search" placeholder="Buscar sigla, significado o categoría…" oninput="renderCards()" autocomplete="off" />
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar" id="stats-bar"></div>
+
+    <!-- Cards -->
+    <div id="cards-container"></div>
+  </main>
+</div>
+
+<!-- ─── Modal agregar / editar ─────────────────────────────────── -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Agregar término</h2>
+      <button class="btn btn-ghost btn-icon btn-sm" onclick="closeModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="field-row">
+        <div class="field required" id="field-abreviacion">
+          <label for="f-abr">Abreviación</label>
+          <input type="text" id="f-abr" placeholder="ej: SpO2" maxlength="20" />
+          <span class="field-error">Campo obligatorio</span>
+        </div>
+        <div class="field required" id="field-categoria">
+          <label for="f-cat">Categoría</label>
+          <select id="f-cat">
+            <option value="">— Seleccionar —</option>
+            <option value="Respiratorio">Respiratorio</option>
+            <option value="Neurológico">Neurológico</option>
+            <option value="Monitoreo">Monitoreo</option>
+            <option value="Medicamentos">Medicamentos</option>
+            <option value="Procedimientos">Procedimientos</option>
+            <option value="Administrativo">Administrativo</option>
+            <option value="Abdomen">Abdomen</option>
+          </select>
+          <span class="field-error">Campo obligatorio</span>
+        </div>
+      </div>
+      <div class="field required" id="field-tecnico">
+        <label for="f-tec">Significado técnico</label>
+        <input type="text" id="f-tec" placeholder="ej: Saturación periférica de oxígeno" maxlength="200" />
+        <span class="field-error">Campo obligatorio</span>
+      </div>
+      <div class="field required" id="field-simple">
+        <label for="f-sim">Traducción simple</label>
+        <input type="text" id="f-sim" placeholder="ej: Oxígeno en la sangre" maxlength="200" />
+        <span class="field-error">Campo obligatorio</span>
+      </div>
+      <div class="field" id="field-ejemplo">
+        <label for="f-ej">Ejemplo clínico</label>
+        <textarea id="f-ej" placeholder="ej: El paciente ingresa con SpO2 88%, se inicia O2 con mascarilla de reservorio." rows="3"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveTerm()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Confirm overlay ─────────────────────────────────────────── -->
+<div id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-icon" id="confirm-icon">⚠️</div>
+    <h3 id="confirm-title">¿Estás seguro?</h3>
+    <p id="confirm-msg">Esta acción no se puede deshacer.</p>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost" onclick="closeConfirm()">Cancelar</button>
+      <button class="btn btn-danger" id="confirm-ok-btn" onclick="confirmAction()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Toast container ─────────────────────────────────────────── -->
+<div id="toast-container"></div>
+
+<!-- ─── JavaScript ─────────────────────────────────────────────── -->
+<script>
+/* ================================================================
+   DATOS INICIALES
+   ================================================================ */
+const INITIAL_DATA = [
+  // RESPIRATORIO
+  { id: 1, abreviacion: "SpO2",    categoria: "Respiratorio",  significado_tecnico: "Saturación periférica de oxígeno",             significado_simple: "Oxígeno en la sangre medido por sensor",               ejemplo: "Paciente ingresa con SpO2 88%, se inicia O2 por mascarilla de reservorio." },
+  { id: 2, abreviacion: "FR",      categoria: "Respiratorio",  significado_tecnico: "Frecuencia respiratoria",                      significado_simple: "Número de veces que respira por minuto",               ejemplo: "FR: 28 rpm, se indica posición semifowler y broncodilatador." },
+  { id: 3, abreviacion: "VMI",     categoria: "Respiratorio",  significado_tecnico: "Ventilación mecánica invasiva",                significado_simple: "Respirador con tubo en la tráquea",                    ejemplo: "Paciente en VMI por insuficiencia respiratoria grave post-cirugía." },
+  { id: 4, abreviacion: "VMNI",    categoria: "Respiratorio",  significado_tecnico: "Ventilación mecánica no invasiva",             significado_simple: "Respirador con máscara, sin tubo",                     ejemplo: "Se inicia VMNI BiPAP con IPAP 12 / EPAP 6 por edema pulmonar." },
+  { id: 5, abreviacion: "EPOC",    categoria: "Respiratorio",  significado_tecnico: "Enfermedad pulmonar obstructiva crónica",      significado_simple: "Pulmones obstruidos por fumar o contaminar",           ejemplo: "Paciente EPOC severo, cursa con exacerbación y retención de CO2." },
+  { id: 6, abreviacion: "PaCO2",   categoria: "Respiratorio",  significado_tecnico: "Presión parcial arterial de dióxido de carbono", significado_simple: "CO2 en sangre arterial",                             ejemplo: "PaCO2 55 mmHg, compatible con hipoventilación." },
+  { id: 7, abreviacion: "PaO2",    categoria: "Respiratorio",  significado_tecnico: "Presión parcial arterial de oxígeno",          significado_simple: "Oxígeno disuelto en sangre arterial",                  ejemplo: "PaO2 52 mmHg, se decide intubación orotraqueal." },
+  { id: 8, abreviacion: "FiO2",    categoria: "Respiratorio",  significado_tecnico: "Fracción inspirada de oxígeno",               significado_simple: "Porcentaje de O2 que está respirando el paciente",     ejemplo: "FiO2 al 60% con mascarilla Venturi sin mejoría de saturación." },
+  { id: 9, abreviacion: "NAF",     categoria: "Respiratorio",  significado_tecnico: "Nebulización con aerosol fino",               significado_simple: "Medicamento inhalado como vapor fino",                 ejemplo: "Se indica NAF con salbutamol cada 20 minutos por broncoespasmo." },
+  { id:10, abreviacion: "PEEP",    categoria: "Respiratorio",  significado_tecnico: "Presión positiva al final de la espiración",  significado_simple: "Presión que mantiene los pulmones abiertos al exhalar", ejemplo: "Se ajusta PEEP a 8 cmH2O para mejorar oxigenación." },
+
+  // NEUROLÓGICO
+  { id:11, abreviacion: "Glasgow", categoria: "Neurológico",   significado_tecnico: "Escala de coma de Glasgow",                   significado_simple: "Puntuación que mide el nivel de conciencia",           ejemplo: "Paciente Glasgow 9/15, se activa protocolo de vía aérea difícil." },
+  { id:12, abreviacion: "AVC",     categoria: "Neurológico",   significado_tecnico: "Accidente vascular cerebral",                 significado_simple: "Derrame o isquemia en el cerebro (ACV)",               ejemplo: "Llega mujer 68 años con sospecha de AVC isquémico, se activa código FAST." },
+  { id:13, abreviacion: "PCR",     categoria: "Neurológico",   significado_tecnico: "Paro cardiorrespiratorio",                    significado_simple: "El corazón y la respiración se detuvieron",            ejemplo: "Paciente en PCR, se inicia RCP de alta calidad, FV en monitor." },
+  { id:14, abreviacion: "HIC",     categoria: "Neurológico",   significado_tecnico: "Hipertensión intracraneal",                   significado_simple: "Presión alta dentro del cráneo",                       ejemplo: "Paciente con HIC severa, se indica manitol 20% y posición 30°." },
+  { id:15, abreviacion: "TCE",     categoria: "Neurológico",   significado_tecnico: "Traumatismo craneoencefálico",               significado_simple: "Golpe fuerte en la cabeza",                            ejemplo: "TCE moderado, se solicita TAC de encéfalo sin contraste." },
+
+  // MONITOREO
+  { id:16, abreviacion: "FC",      categoria: "Monitoreo",     significado_tecnico: "Frecuencia cardíaca",                         significado_simple: "Latidos por minuto",                                    ejemplo: "FC: 130 lpm, se registra taquicardia sinusal en contexto febril." },
+  { id:17, abreviacion: "PA",      categoria: "Monitoreo",     significado_tecnico: "Presión arterial",                           significado_simple: "Fuerza de la sangre sobre las arterias",                ejemplo: "PA: 80/50 mmHg, se indica volumen y norepinefrina." },
+  { id:18, abreviacion: "PAM",     categoria: "Monitoreo",     significado_tecnico: "Presión arterial media",                     significado_simple: "Promedio de la presión en el ciclo cardíaco",          ejemplo: "PAM < 65 mmHg, criterio de shock séptico." },
+  { id:19, abreviacion: "T°",      categoria: "Monitoreo",     significado_tecnico: "Temperatura corporal",                       significado_simple: "Temperatura del cuerpo",                                ejemplo: "T° 39.8°C axilar, se indica paracetamol 1g EV y cultivos." },
+  { id:20, abreviacion: "ECG",     categoria: "Monitoreo",     significado_tecnico: "Electrocardiograma",                         significado_simple: "Registro eléctrico del corazón",                       ejemplo: "ECG de 12 derivaciones muestra supradesnivel ST en DII, DIII, aVF." },
+  { id:21, abreviacion: "BH",      categoria: "Monitoreo",     significado_tecnico: "Balance hídrico",                            significado_simple: "Diferencia entre líquidos que entran y salen",         ejemplo: "BH a las 24h: +1.200 ml, se indica restricción hídrica." },
+  { id:22, abreviacion: "Diuresis",categoria: "Monitoreo",     significado_tecnico: "Volumen urinario por unidad de tiempo",       significado_simple: "Cuánto orina el paciente",                             ejemplo: "Diuresis 0.2 ml/kg/h, se sospecha falla renal, se indica nefrólogo." },
+  { id:23, abreviacion: "SNG",     categoria: "Monitoreo",     significado_tecnico: "Sonda nasogástrica",                         significado_simple: "Tubo que va por la nariz hasta el estómago",           ejemplo: "Se instala SNG para drenaje de contenido gástrico." },
+
+  // MEDICAMENTOS
+  { id:24, abreviacion: "EV",      categoria: "Medicamentos",  significado_tecnico: "Endovenoso (vía intravenosa)",               significado_simple: "Medicamento directo a la vena",                        ejemplo: "Se indica metilprednisolona 1g EV en 30 minutos." },
+  { id:25, abreviacion: "VO",      categoria: "Medicamentos",  significado_tecnico: "Vía oral",                                   significado_simple: "Medicamento tomado por la boca",                       ejemplo: "Paracetamol 500mg VO c/8h por fiebre." },
+  { id:26, abreviacion: "SOS",     categoria: "Medicamentos",  significado_tecnico: "Si fuera necesario (según necesidad)",        significado_simple: "Solo si el paciente lo necesita",                      ejemplo: "Morfina 2mg EV SOS por dolor EVA > 7." },
+  { id:27, abreviacion: "NE",      categoria: "Medicamentos",  significado_tecnico: "Norepinefrina (noradrenalina)",              significado_simple: "Medicamento para subir la presión",                    ejemplo: "NE a 0.2 mcg/kg/min en BIC para shock séptico." },
+  { id:28, abreviacion: "ATB",     categoria: "Medicamentos",  significado_tecnico: "Antibiótico",                                significado_simple: "Medicamento que mata bacterias",                       ejemplo: "Se inicia ATB empírico con cefazolina 2g EV c/8h." },
+  { id:29, abreviacion: "BIC",     categoria: "Medicamentos",  significado_tecnico: "Bomba de infusión continua",                 significado_simple: "Máquina que da medicamento de forma constante",        ejemplo: "Propofol en BIC a 50 ml/h para sedación." },
+
+  // PROCEDIMIENTOS
+  { id:30, abreviacion: "IOT",     categoria: "Procedimientos",significado_tecnico: "Intubación orotraqueal",                     significado_simple: "Poner tubo por la boca hasta la tráquea",             ejemplo: "Se realiza IOT de secuencia rápida, Glasgow 7 y apnea." },
+  { id:31, abreviacion: "RCP",     categoria: "Procedimientos",significado_tecnico: "Reanimación cardiopulmonar",                 significado_simple: "Maniobras para reactivar corazón y respiración",      ejemplo: "Se inicia RCP, ratio 30:2, sin vía aérea avanzada." },
+  { id:32, abreviacion: "CVP",     categoria: "Procedimientos",significado_tecnico: "Catéter venoso periférico",                  significado_simple: "Aguja en la vena del brazo para medicamentos",        ejemplo: "Se instala CVP 18G en antebrazo derecho para hidratación." },
+  { id:33, abreviacion: "CVC",     categoria: "Procedimientos",significado_tecnico: "Catéter venoso central",                     significado_simple: "Vía central en vena grande para medicamentos fuertes", ejemplo: "Se instala CVC yugular interno derecho para NE y monitoreo PVC." },
+  { id:34, abreviacion: "TAC",     categoria: "Procedimientos",significado_tecnico: "Tomografía axial computarizada",             significado_simple: "Escáner del cuerpo por rayos X",                      ejemplo: "TAC de abdomen y pelvis con contraste: derrame libre en fosa ilíaca." },
+  { id:35, abreviacion: "KNT",     categoria: "Procedimientos",significado_tecnico: "Kinesioterapia / Kinesiólogo tratante",      significado_simple: "Intervención fisioterapéutica",                        ejemplo: "Se indica KNT respiratoria c/4h para manejo de secreciones." },
+
+  // ADMINISTRATIVO
+  { id:36, abreviacion: "IC",      categoria: "Administrativo",significado_tecnico: "Interconsulta",                              significado_simple: "Solicitar la opinión de otro especialista",            ejemplo: "IC a broncopulmonar por paciente con fibrosis pulmonar en urgencias." },
+  { id:37, abreviacion: "TRIAGE",  categoria: "Administrativo",significado_tecnico: "Sistema de clasificación de urgencias",       significado_simple: "Categorización de gravedad al llegar a urgencias",     ejemplo: "Paciente clasificado TRIAGE 2 (rojo) por compromiso hemodinámico." },
+  { id:38, abreviacion: "AMA",     categoria: "Administrativo",significado_tecnico: "Alta médica administrativa (contra indicación)", significado_simple: "El paciente se va sin que el médico lo autorice",   ejemplo: "Paciente firma AMA, se registra en ficha y se informa a supervisora." },
+  { id:39, abreviacion: "UFAM",    categoria: "Administrativo",significado_tecnico: "Unidad de corta estadía",                    significado_simple: "Camas temporales para observar al paciente",           ejemplo: "Paciente pasa a UFAM para monitoreo de 12h antes de alta." },
+
+  // ABDOMEN
+  { id:40, abreviacion: "RHA",     categoria: "Abdomen",       significado_tecnico: "Ruidos hidroaéreos",                         significado_simple: "Sonidos del intestino al auscultarlo",                 ejemplo: "RHA disminuidos, abdomen distendido, se sospecha íleo paralítico." },
+  { id:41, abreviacion: "EA",      categoria: "Abdomen",       significado_tecnico: "Enterorragia / Hemorragia digestiva baja",   significado_simple: "Sangrado por el recto",                                ejemplo: "Paciente con EA masiva, se activa protocolo de sangrado digestivo." },
+  { id:42, abreviacion: "ICC",     categoria: "Abdomen",       significado_tecnico: "Ictericia / Colestasis",                     significado_simple: "Color amarillo en piel y ojos",                        ejemplo: "ICC obstructiva en TAC, se solicita CPRE urgente." },
+];
+
+/* ================================================================
+   CONFIGURACIÓN
+   ================================================================ */
+// Clave única por ruta para evitar conflictos en GitHub Pages
+const LS_KEY = "glosario_urg_v1_" + (location.pathname || "/");
+
+const CAT_COLORS = {
+  "Respiratorio":  "var(--c-resp)",
+  "Neurológico":   "var(--c-neuro)",
+  "Monitoreo":     "var(--c-mon)",
+  "Medicamentos":  "var(--c-med)",
+  "Procedimientos":"var(--c-proc)",
+  "Administrativo":"var(--c-admin)",
+  "Abdomen":       "var(--c-abd)",
+};
+
+/* ================================================================
+   ESTADO
+   ================================================================ */
+let terms = [];
+let activeCategory = "Todas";
+let editingId = null;
+let pendingConfirmFn = null;
+
+/* ================================================================
+   PERSISTENCIA
+   ================================================================ */
+let lsAvailable = false;
+(function checkLS() {
+  try {
+    localStorage.setItem("__test__", "1");
+    localStorage.removeItem("__test__");
+    lsAvailable = true;
+  } catch(e) {
+    lsAvailable = false;
+    console.warn("localStorage no disponible:", e);
+  }
+})();
+
+function saveToLS() {
+  if (!lsAvailable) return;
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify(terms));
+  } catch(e) {
+    showToast("No se pudo guardar (almacenamiento lleno)", "error");
+  }
+}
+
+function loadFromLS() {
+  if (!lsAvailable) return false;
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) { terms = JSON.parse(raw); return true; }
+  } catch(e) { console.error("Error leyendo localStorage:", e); }
+  return false;
+}
+
+/* ================================================================
+   INICIO
+   ================================================================ */
+function init() {
+  if (!loadFromLS()) {
+    terms = JSON.parse(JSON.stringify(INITIAL_DATA)); // copia profunda
+    saveToLS();
+  }
+  if (!lsAvailable) {
+    showToast("localStorage no disponible. Los cambios no se guardarán.", "warning");
+  }
+  renderSidebar();
+  renderCards();
+}
+
+/* ================================================================
+   RENDER SIDEBAR
+   ================================================================ */
+function renderSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const cats = ["Todas", ...Object.keys(CAT_COLORS)];
+
+  sidebar.innerHTML = `<div class="sidebar-label">Categorías</div>` +
+    cats.map(cat => {
+      const count = cat === "Todas" ? terms.length : terms.filter(t => t.categoria === cat).length;
+      const color = cat === "Todas" ? "var(--accent)" : CAT_COLORS[cat] || "var(--text-muted)";
+      const active = cat === activeCategory ? "active" : "";
+      return `<button class="filter-btn ${active}" onclick="setCategory('${cat}')">
+        <span class="cat-dot" style="background:${color}"></span>
+        ${cat}
+        <span class="filter-count">${count}</span>
+      </button>`;
+    }).join("");
+}
+
+function setCategory(cat) {
+  activeCategory = cat;
+  renderSidebar();
+  renderCards();
+}
+
+/* ================================================================
+   RENDER CARDS
+   ================================================================ */
+function renderCards() {
+  const container = document.getElementById("cards-container");
+  const query = document.getElementById("search").value.trim().toLowerCase();
+
+  let filtered = terms.filter(t => {
+    const matchCat = activeCategory === "Todas" || t.categoria === activeCategory;
+    const matchQ = !query ||
+      t.abreviacion.toLowerCase().includes(query) ||
+      t.significado_tecnico.toLowerCase().includes(query) ||
+      t.significado_simple.toLowerCase().includes(query) ||
+      t.categoria.toLowerCase().includes(query) ||
+      (t.ejemplo || "").toLowerCase().includes(query);
+    return matchCat && matchQ;
+  });
+
+  // Ordenar por abreviación
+  filtered.sort((a, b) => a.abreviacion.localeCompare(b.abreviacion));
+
+  // Stats
+  renderStats(filtered.length);
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3>Sin resultados</h3>
+        <p>No se encontraron términos con esa búsqueda.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(t => createCard(t)).join("");
+}
+
+function createCard(t) {
+  const color = CAT_COLORS[t.categoria] || "var(--text-muted)";
+  const ejemplo = t.ejemplo
+    ? `<div class="card-example"><strong>Ejemplo clínico</strong>${escapeHTML(t.ejemplo)}</div>`
+    : "";
+
+  return `<div class="card" style="--cat-color:${color}">
+    <div class="card-header">
+      <div>
+        <div class="card-abbr">${escapeHTML(t.abreviacion)}</div>
+      </div>
+      <div class="card-cat">${escapeHTML(t.categoria)}</div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="info-label">Significado técnico</span>
+        <span class="info-val">${escapeHTML(t.significado_tecnico)}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">En palabras simples</span>
+        <span class="info-val simple">${escapeHTML(t.significado_simple)}</span>
+      </div>
+    </div>
+    ${ejemplo}
+    <div class="card-actions">
+      <button class="btn btn-ghost btn-sm" onclick="editTerm(${t.id})">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Editar
+      </button>
+      <button class="btn btn-danger btn-sm" onclick="confirmDelete(${t.id})">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        Eliminar
+      </button>
+    </div>
+  </div>`;
+}
+
+function renderStats(visible) {
+  const bar = document.getElementById("stats-bar");
+  const cats = Object.keys(CAT_COLORS);
+  const catCounts = cats.map(c => ({ cat: c, count: terms.filter(t => t.categoria === c).length }))
+                        .filter(x => x.count > 0);
+
+  bar.innerHTML = `
+    <div class="stat-chip"><strong>${terms.length}</strong> términos totales</div>
+    <div class="stat-chip"><strong>${visible}</strong> mostrando ahora</div>
+  ` + catCounts.map(x =>
+    `<div class="stat-chip" style="border-color:${CAT_COLORS[x.cat]}33">
+      <span class="cat-dot" style="background:${CAT_COLORS[x.cat]}"></span>
+      ${x.cat}: <strong style="color:${CAT_COLORS[x.cat]}">${x.count}</strong>
+    </div>`
+  ).join("");
+}
+
+/* ================================================================
+   MODAL
+   ================================================================ */
+function openModal(id = null) {
+  editingId = id;
+  const overlay = document.getElementById("modal-overlay");
+  document.getElementById("modal-title").textContent = id ? "Editar término" : "Agregar término";
+
+  // Limpiar validaciones
+  ["field-abreviacion","field-categoria","field-tecnico","field-simple","field-ejemplo"]
+    .forEach(f => document.getElementById(f).classList.remove("has-error"));
+
+  if (id) {
+    const t = terms.find(x => x.id === id);
+    if (!t) return;
+    document.getElementById("f-abr").value = t.abreviacion;
+    document.getElementById("f-cat").value = t.categoria;
+    document.getElementById("f-tec").value = t.significado_tecnico;
+    document.getElementById("f-sim").value = t.significado_simple;
+    document.getElementById("f-ej").value  = t.ejemplo || "";
+  } else {
+    document.getElementById("f-abr").value = "";
+    document.getElementById("f-cat").value = "";
+    document.getElementById("f-tec").value = "";
+    document.getElementById("f-sim").value = "";
+    document.getElementById("f-ej").value  = "";
+  }
+
+  overlay.classList.add("open");
+  setTimeout(() => document.getElementById("f-abr").focus(), 200);
+}
+
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("open");
+  editingId = null;
+}
+
+function closeModalOnBg(e) {
+  if (e.target === document.getElementById("modal-overlay")) closeModal();
+}
+
+function saveTerm() {
+  // Validar campos obligatorios
+  const abr = document.getElementById("f-abr").value.trim();
+  const cat = document.getElementById("f-cat").value;
+  const tec = document.getElementById("f-tec").value.trim();
+  const sim = document.getElementById("f-sim").value.trim();
+  const ej  = document.getElementById("f-ej").value.trim();
+
+  let valid = true;
+  const check = (val, fieldId) => {
+    const el = document.getElementById(fieldId);
+    if (!val) { el.classList.add("has-error"); valid = false; }
+    else el.classList.remove("has-error");
+  };
+  check(abr, "field-abreviacion");
+  check(cat, "field-categoria");
+  check(tec, "field-tecnico");
+  check(sim, "field-simple");
+  if (!valid) return;
+
+  if (editingId) {
+    // Editar
+    const idx = terms.findIndex(x => x.id === editingId);
+    if (idx === -1) return;
+    terms[idx] = { ...terms[idx], abreviacion: abr, categoria: cat, significado_tecnico: tec, significado_simple: sim, ejemplo: ej };
+    showToast("Término actualizado correctamente", "success");
+  } else {
+    // Nuevo
+    const newId = terms.length ? Math.max(...terms.map(t => t.id)) + 1 : 1;
+    terms.push({ id: newId, abreviacion: abr, categoria: cat, significado_tecnico: tec, significado_simple: sim, ejemplo: ej });
+    showToast("Término agregado correctamente", "success");
+  }
+
+  saveToLS();
+  closeModal();
+  renderSidebar();
+  renderCards();
+}
+
+/* ================================================================
+   EDITAR / ELIMINAR
+   ================================================================ */
+function editTerm(id) { openModal(id); }
+
+function confirmDelete(id) {
+  const t = terms.find(x => x.id === id);
+  if (!t) return;
+  showConfirm(
+    "🗑️",
+    `¿Eliminar "${t.abreviacion}"?`,
+    "Esta acción eliminará el término permanentemente.",
+    "Eliminar",
+    () => deleteTerm(id)
+  );
+}
+
+function deleteTerm(id) {
+  terms = terms.filter(t => t.id !== id);
+  saveToLS();
+  renderSidebar();
+  renderCards();
+  showToast("Término eliminado", "info");
+}
+
+/* ================================================================
+   RESTAURAR
+   ================================================================ */
+function confirmReset() {
+  showConfirm(
+    "⚠️",
+    "¿Restaurar datos iniciales?",
+    "Se eliminarán todos tus cambios y se cargarán los términos originales.",
+    "Restaurar",
+    resetData
+  );
+}
+
+function resetData() {
+  terms = JSON.parse(JSON.stringify(INITIAL_DATA));
+  activeCategory = "Todas";
+  saveToLS();
+  renderSidebar();
+  renderCards();
+  showToast("Datos restaurados al estado inicial", "success");
+}
+
+/* ================================================================
+   EXPORTAR / IMPORTAR JSON
+   ================================================================ */
+function exportJSON() {
+  const data = JSON.stringify(terms, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  const ts   = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `glosario-urgencias-${ts}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("Glosario exportado como JSON", "success");
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (!file.name.endsWith(".json")) {
+    showToast("Selecciona un archivo .json válido", "error"); return;
+  }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!Array.isArray(imported)) throw new Error("Formato inválido");
+
+      // Validar estructura mínima
+      const required = ["abreviacion","categoria","significado_tecnico","significado_simple"];
+      const valid = imported.every(t => required.every(k => k in t));
+      if (!valid) throw new Error("Faltan campos obligatorios");
+
+      // Asignar IDs seguros
+      let nextId = terms.length ? Math.max(...terms.map(t => t.id)) + 1 : 1;
+      const merged = imported.map(t => ({
+        id: Number.isInteger(t.id) && !terms.find(x => x.id === t.id) ? t.id : nextId++,
+        abreviacion: t.abreviacion,
+        categoria: t.categoria,
+        significado_tecnico: t.significado_tecnico,
+        significado_simple: t.significado_simple,
+        ejemplo: t.ejemplo || "",
+      }));
+
+      showConfirm(
+        "📥",
+        `Importar ${merged.length} términos`,
+        "¿Reemplazar todos los datos actuales con el archivo importado?",
+        "Importar",
+        () => {
+          terms = merged;
+          saveToLS();
+          activeCategory = "Todas";
+          renderSidebar();
+          renderCards();
+          showToast(`${merged.length} términos importados`, "success");
+        }
+      );
+    } catch(err) {
+      showToast("Error al importar: " + err.message, "error");
+    }
+    // Resetear input para permitir re-importar el mismo archivo
+    event.target.value = "";
+  };
+  reader.readAsText(file);
+}
+
+/* ================================================================
+   CONFIRM DIALOG
+   ================================================================ */
+function showConfirm(icon, title, msg, actionLabel, fn) {
+  pendingConfirmFn = fn;
+  document.getElementById("confirm-icon").textContent = icon;
+  document.getElementById("confirm-title").textContent = title;
+  document.getElementById("confirm-msg").textContent = msg;
+  document.getElementById("confirm-ok-btn").textContent = actionLabel;
+  document.getElementById("confirm-overlay").classList.add("open");
+}
+
+function closeConfirm() {
+  document.getElementById("confirm-overlay").classList.remove("open");
+  pendingConfirmFn = null;
+}
+
+function confirmAction() {
+  if (pendingConfirmFn) pendingConfirmFn();
+  closeConfirm();
+}
+
+// Cerrar confirm con Escape
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closeModal(); closeConfirm(); }
+});
+
+// Cerrar confirm al hacer clic en el fondo
+document.getElementById("confirm-overlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("confirm-overlay")) closeConfirm();
+});
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+function showToast(msg, type = "info", duration = 3000) {
+  const icons = { success: "✓", error: "✕", info: "ℹ", warning: "⚠" };
+  const container = document.getElementById("toast-container");
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${icons[type] || "ℹ"}</span><span>${escapeHTML(msg)}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateX(20px)";
+    toast.style.transition = "opacity .3s, transform .3s";
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+/* ================================================================
+   UTILIDADES
+   ================================================================ */
+function escapeHTML(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/* ================================================================
+   ARRANQUE
+   ================================================================ */
+init();
+</script>
+</body>
+</html>
